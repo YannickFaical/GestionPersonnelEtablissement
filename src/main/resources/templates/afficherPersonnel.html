@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Liste du personnel</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{../css/style.css}" />
+
+    <!-- Vendor CSS Files -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../vendor/simple-datatables/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Header -->
+<header th:replace="partials/header :: header"></header>
+<!-- End Header -->
+
+<!-- Sidebar -->
+<aside th:replace="partials/sidebar :: sidebar"></aside>
+<!-- End Sidebar -->
+
+<!-- Content -->
+<main id="main" class="main">
+    <div class="container">
+        <div class="pagetitle">
+            <h1>Liste du personnel</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/}">Tableau de bord</a></li>
+                    <li class="breadcrumb-item active">Liste du personnel</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Ajouter <a th:href="@{/ajouterPersonnel}"><i
+                                    class="fas fa-plus"></i></a></h5>
+
+            <!-- Formulaire de recherche par mot-clé   									<form th:action="@{/afficherPersonnel}" method="get">                       -->
+                          <div id="search">
+				            <form th:action="@{/afficherPersonnel}" method="get">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="motcle" placeholder="Rechercher par mot-clé" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+                                    </div>
+                                </div>
+                             </form>
+						</div> 
+							
+                            <!-- Fin du formulaire de recherche -->
+
+                            <!-- Tableau avec les lignes striées -->
+                            <table class="table datatable">
+                                <thead>
+                                <tr>
+									
+                                    <th><b>Nom</b></th>
+                                    <th>Prenom</th>
+                                    <th>Poste</th>
+                                    <th>Email</th>
+                                    <th>Mdp</th>
+									<th>photo</th>
+                                    <th>Permanent</th>
+                                   
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Boucle à travers personnelList du modèle -->
+                                <tr th:each="personnel : ${personnelList}">
+									
+                                    <td th:text="${personnel.nom}"> </td>
+                                    <td th:text="${personnel.prenom}"> </td>
+                                    <td th:text="${personnel.poste}"> </td>
+                                    <td th:text="${personnel.email}"> </td>
+                                    <td th:text="${personnel.password}"> </td>
+									<td th:text="${personnel.photo}"> </td>
+									<td th:text="${personnel.estPermanent}"> </td>
+								
+                                    <td>
+										<!-- Lien de modification -->
+										      <a th:href="@{/editerPersonnel(idPersonnel=${personnel.idPersonnel})}" title="Modifier"
+										         style="margin-right: 10px; text-decoration: none;">
+										          <i class="fas fa-edit"></i>
+										      </a>
+										      <!-- Lien de suppression -->
+										      <a th:href="@{/supprimerPersonnel(idPersonnel=${personnel.idPersonnel})}" title="Supprimer">
+										          <i class="fas fa-trash" style="color: red; text-decoration: none;"></i>
+										      </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- Fin du tableau avec les lignes striées -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+<!-- Fin du contenu -->
+
+<!-- Pied de page -->
+<footer th:replace="partials/footer :: footer"></footer>
+<!-- Fin du pied de page -->
+
+<!-- Bouton de retour en haut -->
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+
+<!-- Inclure Bootstrap JS -->
+
+</body>
+<script src="../vendor/apexcharts/apexcharts.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../vendor/chart.js/chart.umd.js"></script>
+<script src="../vendor/echarts/echarts.min.js"></script>
+<script src="../vendor/quill/quill.min.js"></script>
+<script src="../vendor/simple-datatables/simple-datatables.js"></script>
+<script src="../vendor/tinymce/tinymce.min.js"></script>
+<script src="../vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="../js/main.js"></script>
+</html>

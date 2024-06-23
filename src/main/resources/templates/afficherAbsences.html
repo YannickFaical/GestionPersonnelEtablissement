@@ -1,0 +1,112 @@
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>Liste des absences</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{../css/style.css}" />
+
+    <!-- Vendor CSS Files -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../vendor/simple-datatables/style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Header -->
+<header th:replace="partials/header :: header"></header>
+<!-- End Header -->
+
+<!-- Sidebar -->
+<aside th:replace="partials/sidebar :: sidebar"></aside>
+<!-- End Sidebar -->
+
+<!-- Content -->
+<main id="main" class="main">
+    <div class="container">
+        <div class="pagetitle">
+            <h1>Liste des absences</h1>
+            <nav>
+                <a href="/ajouterAbsence" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une absence</a>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Début</th>
+                                        <th>Fin</th>
+                                        <th>Type</th>
+                                        <th>Personnel</th>
+                                        <th>Justifié/Non justifié</th>
+                                        <th>Justificatif</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Boucle à travers la liste des absences -->
+                                    <tr th:each="absence : ${absences}">
+                                        <td th:text="${absence.jourAbsence}"> </td>
+                                        <td th:text="${absence.heureDebut}"> </td>
+                                        <td th:text="${absence.heureFin}"> </td>
+                                        <td th:text="${absence.type}"> </td>
+                                        <td th:text="${absence.personnel.nom} + ' ' + ${absence.personnel.prenom}"> </td>
+                                        <td th:text="${absence.justifier}"> </td>
+                                        <td th:text="${absence.justificatif}"> </td>
+                                        <td>
+                                            <!-- Lien de modification -->
+                                            <a th:href="@{/editerAbsence/{id}(id=${absence.id})}" title="Modifier" class="btn btn-info me-2"><i class="fas fa-edit"></i> </a>
+                                            <!-- Lien de suppression -->
+                                            <a th:href="@{/supprimerAbsence/{id}(id=${absence.id})}" title="Supprimer" class="btn btn-danger me-2"><i class="fas fa-trash"></i> </a>
+                                                  
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+<!-- Fin du contenu -->
+
+
+<!-- Pied de page -->
+<footer th:replace="partials/footer :: footer"></footer>
+<!-- Fin du pied de page -->
+
+<!-- Bouton de retour en haut -->
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+
+<!-- Inclure Bootstrap JS -->
+</body>
+
+<script src="../vendor/apexcharts/apexcharts.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../vendor/chart.js/chart.umd.js"></script>
+<script src="../vendor/echarts/echarts.min.js"></script>
+<script src="../vendor/quill/quill.min.js"></script>
+<script src="../vendor/simple-datatables/simple-datatables.js"></script>
+<script src="../vendor/tinymce/tinymce.min.js"></script>
+<script src="../vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="../js/main.js"></script>
+</html>
+</html>

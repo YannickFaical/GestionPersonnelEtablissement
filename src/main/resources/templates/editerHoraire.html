@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éditer Horaire</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Éditer Horaire</h1>
+        <form action="#" method="post" th:action="@{/horaire/updateHoraire/{id}(id=${plageHoraire.id})}" th:object="${plageHoraire}">
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label for="jourSemaine">Jour de la semaine:</label>
+                <select class="form-control" id="jourSemaine" name="jourSemaine" th:field="*{jourSemaine}">
+                    <option th:each="jour : ${joursSemaine}" th:value="${jour}" th:text="${jour}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="heureDebut">Heure de début:</label>
+                <input type="time" class="form-control" id="heureDebut" name="heureDebut" th:field="*{heureDebut}">
+            </div>
+            <div class="form-group">
+                <label for="heureFin">Heure de fin:</label>
+                <input type="time" class="form-control" id="heureFin" name="heureFin" th:field="*{heureFin}">
+            </div>
+            <div class="form-group">
+                <label for="personnel">Personnel:</label>
+                <select class="form-control" id="personnel" name="personnel.idPersonnel" th:field="*{personnel.idPersonnel}">
+                    <option th:each="personnel : ${personnelList}" th:value="${personnel.idPersonnel}" th:text="${personnel.nom + ' ' + personnel.prenom}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+

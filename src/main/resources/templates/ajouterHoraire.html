@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Liste du personnel</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{../css/style.css}" />
+
+    <!-- Vendor CSS Files -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../vendor/simple-datatables/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Header -->
+<header th:replace="partials/header :: header"></header>
+<!-- End Header -->
+
+<!-- Sidebar -->
+<aside th:replace="partials/sidebar :: sidebar"></aside>
+<!-- End Sidebar -->
+
+<!-- ---------- CONTENU PAGE  ----------- -->
+<main id="main" class="main">
+    <div class="container">
+        <div class="pagetitle">
+            <h1>Ajouter un horaire</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/}">Tableau de bord</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/horaire/afficherPlanning}">Planification des emplois du temps du personnel</a></li>
+                    <li class="breadcrumb-item active">Ajouter un horaire</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-8">
+
+                    <div class="card">
+                        <div class="card-body">
+							
+							<div class="container mt-3">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8">
+                                        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                                            <span th:text="${successMessage}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<form th:action="@{/horaire/saveHoraire}" method="post" th:object="${plageHoraire}">
+							    <!-- Autres champs -->
+							
+							    <div class="form-group mb-3">
+							        <label for="jourSemaine">Jour de la semaine</label>
+							        <select class="form-control" id="jourSemaine" name="jourSemaine" th:field="*{jourSemaine}">
+							            <option value="LUNDI">Lundi</option>
+							            <option value="MARDI">Mardi</option>
+							            <option value="MERCREDI">Mercredi</option>
+							            <option value="JEUDI">Jeudi</option>
+							            <option value="VENDREDI">Vendredi</option>
+							            <option value="SAMEDI">Samedi</option>
+							            <option value="DIMANCHE">Dimanche</option>
+							        </select>
+							    </div>
+							
+							    <div class="form-group mb-3">
+							        <label for="heureDebut">Heure de début</label>
+							        <input type="time" class="form-control" id="heureDebut" name="heureDebut" th:field="*{heureDebut}">
+							        <small class="form-text text-danger" th:if="${#fields.hasErrors('heureDebut')}" th:errors="*{heureDebut}">Erreur</small>
+							    </div>
+							
+							    <div class="form-group mb-3">
+							        <label for="heureFin">Heure de fin</label>
+							        <input type="time" class="form-control" id="heureFin" name="heureFin" th:field="*{heureFin}">
+							        <small class="form-text text-danger" th:if="${#fields.hasErrors('heureFin')}" th:errors="*{heureFin}">Erreur</small>
+							    </div>
+							
+							    <div class="form-group mb-3">
+							        <label for="personnel">Personnel</label>
+									<select class="form-select" aria-label="Default select example" th:field="*{personnel}">
+									               <option value="" selected>Selectionner personnel</option>
+									                                    <!-- Itération à travers la liste de personnel pour créer les options -->
+									                <option th:each="personnel : ${personnelList}" th:value="${personnel.idPersonnel}">
+									                                        <!-- Concaténation du nom et du prénom du personnel pour l'affichage -->
+									             <span th:text="${personnel.nom + ' ' + personnel.prenom}"></span>
+									       </option>
+									  </select>
+							    </div>
+							
+							    <button type="submit" class="btn btn-primary">Enregistrer</button>
+							</form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<!-- -------- FIN CONTENU ------------ -->
+
+
+<!-- Pied de page -->
+<footer th:replace="partials/footer :: footer"></footer>
+<!-- Fin du pied de page -->
+
+<!-- Bouton de retour en haut -->
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+
+<!-- Inclure Bootstrap JS -->
+
+</body>
+<script src="../vendor/apexcharts/apexcharts.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../vendor/chart.js/chart.umd.js"></script>
+<script src="../vendor/echarts/echarts.min.js"></script>
+<script src="../vendor/quill/quill.min.js"></script>
+<script src="../vendor/simple-datatables/simple-datatables.js"></script>
+<script src="../vendor/tinymce/tinymce.min.js"></script>
+<script src="../vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="../js/main.js"></script>
+</html>
